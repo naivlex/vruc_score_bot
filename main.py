@@ -90,7 +90,11 @@ def main():
                              "accept": "application/json, text/plain, */*",
                              "userrolecode": "student"}
                 ) as req:
-                    data = req.json()
+                    if req.status_code == 200:
+                        data = req.json()
+                    else:
+                        time.sleep(30)
+                        continue
 
                 updated = []
 
@@ -124,9 +128,10 @@ def main():
                     send_mail('成绩更新', prolog +
                               '\r\n'.join(updated)+epilog, 'html')
 
-                time.sleep(30)
+                time.sleep(300)
     except Exception as e:
-        send_mail('发生错误', traceback.format_exception(e))
+        send_mail('发生错误', '\n'.join(traceback.format_exception(e)))
+        raise
 
 
 if __name__ == '__main__':
