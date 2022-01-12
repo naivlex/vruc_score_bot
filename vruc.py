@@ -7,6 +7,8 @@ import requests
 from io import BytesIO
 from PIL import Image
 
+import config
+
 iframe_pattern = '<iframe id="login-iframe" src="'
 csrf_pattern = 'name="csrftoken" value="'
 
@@ -68,10 +70,28 @@ def vrucLogin(username: str, password: str, session: requests.Session, captcha_r
     else:
         raise RuntimeError('captcha limit exceeded')
 
+
 def solve_captcha_manually(b64s: str) -> str:
+    grayscale = " .:-=+*#%@"
+
     with Image.open(BytesIO(base64.b64decode(b64s))) as img:
         _, _, _, alpha = img.split()
-        alpha.show()
+
+        if config.captcha_on_ascii:
+            for r in range(0, alpha.size[1], 2):
+                for c in range(0, alpha.size[0]):
+                    a0 = alpha.getpixel((c, r))
+
+                    if r + 1 < alpha.size[1]:
+                        a1 = alpha.getpixel((c, r + 1))
+                    else:
+                        a1 = 0.0
+
+                    print(grayscale[int((a0 + a1) / 512 * 10)], end='')
+                print()
+            print()
+        else:
+            alpha.show()
         ret = input('Captcha: ').strip()
         
     return ret

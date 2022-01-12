@@ -3,5 +3,6 @@
     "vruc_password": "1919810",
     "vruc_mailbox": "1970114514",
     "vruc_mail_password": "1919810",
-    "target_mailbox": null
+    "target_mailbox": null,
+    "captcha_on_ascii": true
 }

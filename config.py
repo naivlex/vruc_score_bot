@@ -1,6 +1,6 @@
 import json
 
-__all__ = ['vruc_student_id', 'vruc_password', 'vruc_mailbox', 'vruc_mail_password', 'target_mailbox']
+__all__ = ['vruc_student_id', 'vruc_password', 'vruc_mailbox', 'vruc_mail_password', 'target_mailbox', 'captcha_on_ascii']
 
 vruc_student_id = '1919810'
 vruc_password = '******'
@@ -8,6 +8,7 @@ vruc_password = '******'
 vruc_mailbox = '114514'
 vruc_mail_password = '1919810',
 target_mailbox = None
+captcha_on_ascii = True
 
 try:
     with open('config.json', encoding='utf-8') as fin:
