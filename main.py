@@ -20,7 +20,7 @@ import vruc
 # requests_log.setLevel(logging.DEBUG)
 # requests_log.propagate = True
 
-prelog = """
+prolog = """
 <html lang="en">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
@@ -41,7 +41,7 @@ table, th, td {
 <th>总成绩</th>
 </tr>
 """
-prolog = "</table>\r\n</body>\r\n</html>\r\n"
+epilog = "</table>\r\n</body>\r\n</html>\r\n"
 
 
 def main():
@@ -121,8 +121,8 @@ def main():
                                     course_id, course_value))
 
                 if updated:
-                    send_mail('成绩更新', prelog +
-                              '\r\n'.join(updated)+prolog, 'html')
+                    send_mail('成绩更新', prolog +
+                              '\r\n'.join(updated)+epilog, 'html')
 
                 time.sleep(30)
     except Exception as e:
