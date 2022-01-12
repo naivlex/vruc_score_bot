@@ -8,6 +8,7 @@ import traceback
 
 from mail import send_mail
 import vruc
+import config
 
 # import logging
 # import http.client as http_client
@@ -46,15 +47,13 @@ epilog = "</table>\r\n</body>\r\n</html>\r\n"
 
 def main():
     course_data = {}
-    vruc_cookie = input('JS cookie: ')
-    # php_session = input('session: ')
-    # if php_session:
-    #     vruc_cookie = vruc_cookie + '; session=' + php_session
 
     try:
-        while True:
-            with requests.session() as session:
-                vruc.checkvrucLogin(vruc_cookie, session)
+        with requests.session() as session:
+            while True:
+                if not vruc.checkvrucLogin(session):
+                    print("Token expired, try to login...")
+                    vruc.vrucLogin(config.vruc_student_id, config.vruc_password, session)
 
                 with session.get(
                     'https://v.ruc.edu.cn/oauth2/authorize?response_type=code&scope=all&state=yourstate&client_id=5d25ae5b90f4d14aa601ede8.ruc&redirect_uri=http://jw.ruc.edu.cn/secService/oauthlogin',

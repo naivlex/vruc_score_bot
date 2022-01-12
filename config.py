@@ -1,6 +1,9 @@
 import json
 
-__all__ = ['vruc_mailbox', 'vruc_mail_password']
+__all__ = ['vruc_student_id', 'vruc_password', 'vruc_mailbox', 'vruc_mail_password', 'target_mailbox']
+
+vruc_student_id = '1919810'
+vruc_password = '******'
 
 vruc_mailbox = '114514'
 vruc_mail_password = '1919810',
