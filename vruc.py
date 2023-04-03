@@ -14,7 +14,7 @@ csrf_pattern = 'name="csrftoken" value="'
 
 def checkvrucLogin(session: requests.Session) -> bool:
     with session.get('https://v.ruc.edu.cn') as req:
-        return 'v.ruc.edu.cn/v1me' in req.url
+        return 'v.ruc.edu.cn/me' in req.url
 
 def vrucLogin(username: str, password: str, session: requests.Session, captcha_retry_limit: int = 3):
     with session.get('https://v.ruc.edu.cn', allow_redirects=True) as req:
